@@ -8,13 +8,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class StudentRegister implements StudentInterface {
+public class StudentDataSource implements StudentInterface {
 
     private String mStudentJsonStr;
     private SaveSp mSaveSpInterface;
     private ArrayList<Student> mStudents;
 
-    public StudentRegister(String studentJson, StudentInterface.SaveSp saveSpInterface) {
+    public StudentDataSource(String studentJson, StudentInterface.SaveSp saveSpInterface) {
         this.mStudentJsonStr = studentJson;
         this.mSaveSpInterface = saveSpInterface;
         this.mStudents = extractStudentJson(this.mStudentJsonStr);
