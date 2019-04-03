@@ -12,8 +12,14 @@ public interface StudentInterface {
 
     Student searchStudentByEmail(String email);
 
-    boolean deleteStudent(int id);
+    void deleteStudent(int id);
 
     ArrayList<Student> getAllStudent();
+
+    boolean editStudent(int id, String name, String email);
+
+    interface SaveSp {
+        void saveStudentSp(String studentJsonStr);
+    }
 
 }
