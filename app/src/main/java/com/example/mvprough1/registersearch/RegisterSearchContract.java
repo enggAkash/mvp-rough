@@ -14,7 +14,7 @@ public interface RegisterSearchContract {
 
         void hideLoadingUI();
 
-        void refreshStudenList(ArrayList<Student> students);
+        void refreshStudentList(ArrayList<Student> students);
 
         void showNoStudentUI();
 

@@ -33,7 +33,7 @@ public class RegisterSearchPresenter implements RegisterSearchContract.Presenter
         if (allStudent.isEmpty())
             mStudentView.showNoStudentUI();
         else
-            mStudentView.refreshStudenList(allStudent);
+            mStudentView.refreshStudentList(allStudent);
     }
 
     @Override
