@@ -18,8 +18,4 @@ public interface StudentInterface {
 
     boolean editStudent(int id, String name, String email);
 
-    interface SaveSp {
-        void saveStudentSp(String studentJsonStr);
-    }
-
 }

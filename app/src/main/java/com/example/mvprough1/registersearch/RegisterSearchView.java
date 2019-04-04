@@ -1,66 +1,83 @@
 package com.example.mvprough1.registersearch;
 
-
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.mvprough1.R;
+import com.example.mvprough1.data.Student;
+import com.example.mvprough1.data.StudentDataSource;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterSearchView#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RegisterSearchView extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class RegisterSearchView extends AppCompatActivity implements RegisterSearchContract.View {
 
-
-    public RegisterSearchView() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterSearchView.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegisterSearchView newInstance(String param1, String param2) {
-        RegisterSearchView fragment = new RegisterSearchView();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private RegisterSearchPresenter mPresenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setContentView(R.layout.register_search_view);
+
+
+        // Create Data Source
+        StudentDataSource dataSource = new StudentDataSource(this);
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_search, container, false);
+    public void setmPresenter(RegisterSearchPresenter registerSearchPresenter) {
+        mPresenter = registerSearchPresenter;
+    }
+
+    @Override
+    public void showLoadingUI() {
+
+    }
+
+    @Override
+    public void hideLoadingUI() {
+
+    }
+
+    @Override
+    public void refreshStudenList(ArrayList<Student> students) {
+
+    }
+
+    @Override
+    public void showNoStudentUI() {
+
+    }
+
+    @Override
+    public void showErr(String msg) {
+
+    }
+
+    @Override
+    public void saveSharedPref(String str, String spName, String spKey) {
+
+    }
+
+    @Override
+    public void displayStudent(ArrayList<Student> students) {
+
+    }
+
+    @Override
+    public void showMsg(String msg) {
+
+    }
+
+    @Override
+    public void studentToEdit(Student student) {
+
+    }
+
+    private String getStudentJsonSp() {
+
+        return "";
     }
 
 }

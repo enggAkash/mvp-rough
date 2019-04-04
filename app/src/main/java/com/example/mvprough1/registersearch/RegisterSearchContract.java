@@ -10,8 +10,6 @@ public interface RegisterSearchContract {
 
     interface View extends BaseView<RegisterSearchPresenter> {
 
-        String getStudentSp();
-
         void showLoadingUI();
 
         void hideLoadingUI();
@@ -22,9 +20,7 @@ public interface RegisterSearchContract {
 
         void showErr(String msg);
 
-        void hideErr();
-
-        void saveSharedPref(String str, String spName,  String spKey);
+        void saveSharedPref(String str, String spName, String spKey);
 
         void displayStudent(ArrayList<Student> students);
 

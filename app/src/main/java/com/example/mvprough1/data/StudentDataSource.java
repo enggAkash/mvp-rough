@@ -1,5 +1,6 @@
 package com.example.mvprough1.data;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.mvprough1.util.Validator;
@@ -13,13 +14,17 @@ import java.util.ArrayList;
 public class StudentDataSource implements StudentInterface {
 
     private String mStudentJsonStr;
-    private SaveSp mSaveSpInterface;
     private ArrayList<Student> mStudents;
+    private Context mContext;
 
-    public StudentDataSource(String studentJson, StudentInterface.SaveSp saveSpInterface) {
-        this.mStudentJsonStr = studentJson;
-        this.mSaveSpInterface = saveSpInterface;
+    public StudentDataSource(Context context) {
+        this.mContext = context;
+        this.mStudentJsonStr = getStudentSp();
         this.mStudents = extractStudentJson(this.mStudentJsonStr);
+    }
+
+    private String getStudentSp() {
+        return "";
     }
 
     @Override
@@ -150,6 +155,7 @@ public class StudentDataSource implements StudentInterface {
     }
 
     private void saveStudentJsonStr() {
+/*
         if (mSaveSpInterface != null) {
 
             JSONArray studentJa = new JSONArray(mStudents);
@@ -166,5 +172,6 @@ public class StudentDataSource implements StudentInterface {
                 e.printStackTrace();
             }
         }
+*/
     }
 }
