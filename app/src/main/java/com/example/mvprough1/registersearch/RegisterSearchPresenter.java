@@ -2,12 +2,11 @@ package com.example.mvprough1.registersearch;
 
 import com.example.mvprough1.data.Student;
 import com.example.mvprough1.data.StudentDataSource;
-import com.example.mvprough1.data.StudentInterface;
 import com.example.mvprough1.util.Validator;
 
 import java.util.ArrayList;
 
-public class RegisterSearchPresenter implements StudentInterface.SaveSp, RegisterSearchContract.Presenter {
+public class RegisterSearchPresenter implements RegisterSearchContract.Presenter {
 
 
     private StudentDataSource mStudentDataSource;
@@ -16,6 +15,8 @@ public class RegisterSearchPresenter implements StudentInterface.SaveSp, Registe
     public RegisterSearchPresenter(StudentDataSource studentDataSource, RegisterSearchContract.View studentView) {
         mStudentDataSource = studentDataSource;
         mStudentView = studentView;
+
+        mStudentView.setPresenter(this);
     }
 
     @Override
@@ -23,11 +24,6 @@ public class RegisterSearchPresenter implements StudentInterface.SaveSp, Registe
         mStudentView.showLoadingUI();
         showStudentList();
         mStudentView.hideLoadingUI();
-    }
-
-    @Override
-    public void saveStudentSp(String studentJsonStr) {
-        mStudentView.saveSharedPref(studentJsonStr, "student_sp", "students");
     }
 
     @Override

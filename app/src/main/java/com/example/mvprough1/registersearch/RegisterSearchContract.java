@@ -20,8 +20,6 @@ public interface RegisterSearchContract {
 
         void showErr(String msg);
 
-        void saveSharedPref(String str, String spName, String spKey);
-
         void displayStudent(ArrayList<Student> students);
 
         void showMsg(String msg);

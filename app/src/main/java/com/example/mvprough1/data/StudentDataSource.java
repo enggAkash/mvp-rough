@@ -1,8 +1,10 @@
 package com.example.mvprough1.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.example.mvprough1.util.Constant;
 import com.example.mvprough1.util.Validator;
 
 import org.json.JSONArray;
@@ -21,10 +23,6 @@ public class StudentDataSource implements StudentInterface {
         this.mContext = context;
         this.mStudentJsonStr = getStudentSp();
         this.mStudents = extractStudentJson(this.mStudentJsonStr);
-    }
-
-    private String getStudentSp() {
-        return "";
     }
 
     @Override
@@ -155,8 +153,7 @@ public class StudentDataSource implements StudentInterface {
     }
 
     private void saveStudentJsonStr() {
-/*
-        if (mSaveSpInterface != null) {
+        if (mContext != null) {
 
             JSONArray studentJa = new JSONArray(mStudents);
 
@@ -167,11 +164,21 @@ public class StudentDataSource implements StudentInterface {
 
                 mStudentJsonStr = rootJo.toString();
 
-                mSaveSpInterface.saveStudentSp(mStudentJsonStr);
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putString(Constant.SP_KEY, mStudentJsonStr);
+                edit.apply();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-*/
+    }
+
+    private String getStudentSp() {
+
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.SP_KEY, "{\"students\":[]}");
     }
 }
