@@ -2,6 +2,8 @@ package com.example.mvprough1.data;
 
 import android.text.TextUtils;
 
+import com.example.mvprough1.util.Validator;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ public class StudentDataSource implements StudentInterface {
             return false;
         if (searchStudentByEmail(email) != null)
             return false;
-        if (!isValidEmail(email))
+        if (!Validator.isValidEmail(email))
             return false;
 
         mStudents.add(new Student(id, name, email));
@@ -106,7 +108,7 @@ public class StudentDataSource implements StudentInterface {
 
                 if (searchStudentByEmail(email) != null)
                     return false;
-                if (!isValidEmail(email))
+                if (!Validator.isValidEmail(email))
                     return false;
 
                 student.setName(name);
@@ -164,12 +166,5 @@ public class StudentDataSource implements StudentInterface {
                 e.printStackTrace();
             }
         }
-    }
-
-    private boolean isValidEmail(String email) {
-
-        String emailRegex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-
-        return email.matches(emailRegex);
     }
 }
