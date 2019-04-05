@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.example.mvprough1.data.StudentDataSource;
 import java.util.ArrayList;
 
 public class RegisterSearchView extends AppCompatActivity implements RegisterSearchContract.View {
+    private static final String TAG = "RegisterSearchView";
 
     private RegisterSearchPresenter mPresenter;
     private Button mRegisterTab;
@@ -34,7 +36,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
     private LinearLayout mSearchLayout;
     private Spinner searchCriteriaSpinner;
     private EditText searchText;
-    private Button searchBtn;
+    private Button mSearchBtn;
     private ProgressBar progressBar;
     private ListView studentListView;
     private TextView emptyListView;
@@ -68,7 +70,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
         mSearchLayout = findViewById(R.id.search_layout);
         searchCriteriaSpinner = findViewById(R.id.search_criteria_spinner);
         searchText = findViewById(R.id.search_text_et);
-        searchBtn = findViewById(R.id.search_btn);
+        mSearchBtn = findViewById(R.id.search_btn);
 
         progressBar = findViewById(R.id.progress_bar);
 
@@ -93,7 +95,32 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
         });
 
         mStudentList = new ArrayList<>();
+//        mStudentList.add(new Student(1, "Akash kumar", "akash@example.com"));
+//        mStudentList.add(new Student(2, "Akash kushwaha", "kushwaha@email.com"));
         studentAdapter = new StudentAdapter(this, R.layout.student_item, mStudentList);
+
+        studentListView.setAdapter(studentAdapter);
+
+        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = Integer.parseInt(mStudentId.getText().toString().trim());
+                String name = mStudentName.getText().toString().trim();
+                String email = mStudentEmail.getText().toString().trim();
+
+                mPresenter.registerStudent(id, name, email);
+            }
+        });
+
+        mSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d(TAG, "selected Spinner : " + searchCriteriaSpinner.getSelectedItem().toString());
+
+            }
+        });
+
     }
 
     @Override
@@ -119,13 +146,26 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
 
     @Override
     public void refreshStudentList(ArrayList<Student> students) {
-        mStudentList = students;
+        emptyListView.setVisibility(View.GONE);
+        for (Student s : students) {
+
+            int id = s.getId();
+            String name = s.getName();
+            String email = s.getEmail();
+
+            Log.d(TAG, "refreshStudentList: " + id + "\t" + name + "\t" + email);
+        }
+
+        mStudentList.clear();
+        mStudentList.addAll(students);
         studentAdapter.notifyDataSetChanged();
+        Log.d(TAG, "refreshStudentList: " + studentAdapter.getCount());
     }
 
     @Override
     public void showNoStudentUI() {
         studentListView.setEmptyView(emptyListView);
+        emptyListView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -144,7 +184,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
             studentText
                     .append("ID: ").append(s.getId())
                     .append("\nName: ").append(s.getName())
-                    .append("\nEmail: ").append(s.getEmai())
+                    .append("\nEmail: ").append(s.getEmail())
                     .append("\n\n");
         }
 
@@ -176,7 +216,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
 
         mStudentId.setText(student.getId());
         mStudentName.setText(student.getName());
-        mStudentEmail.setText(student.getEmai());
+        mStudentEmail.setText(student.getEmail());
     }
 
 }

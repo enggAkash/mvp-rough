@@ -3,9 +3,14 @@ package com.example.mvprough1.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.mvprough1.util.Constant;
 import com.example.mvprough1.util.Validator;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class StudentDataSource implements StudentInterface {
+    private static final String TAG = "StudentDataSource";
 
     private String mStudentJsonStr;
     private ArrayList<Student> mStudents;
@@ -75,7 +81,7 @@ public class StudentDataSource implements StudentInterface {
         Student student = null;
 
         for (Student s : mStudents) {
-            if (s.getEmai().equalsIgnoreCase(email)) {
+            if (s.getEmail().equalsIgnoreCase(email)) {
                 student = s;
                 break;
             }
@@ -115,7 +121,7 @@ public class StudentDataSource implements StudentInterface {
                     return false;
 
                 student.setName(name);
-                student.setEmai(email);
+                student.setEmail(email);
 
                 mStudents.set(i, student);
 
@@ -134,9 +140,13 @@ public class StudentDataSource implements StudentInterface {
             mStudentJsonStr = jsonStr = "{\"student\":[]}";
 
         try {
+
+            Log.d(TAG, "extractStudentJson: " + jsonStr);
             JSONObject rootJo = new JSONObject(jsonStr);
 
             JSONArray studentJa = rootJo.getJSONArray("students");
+
+            Log.d(TAG, "extractStudentJson: " + studentJa.toString());
 
             for (int i = 0; i < studentJa.length(); i++) {
                 JSONObject jo = studentJa.getJSONObject(i);
@@ -155,23 +165,20 @@ public class StudentDataSource implements StudentInterface {
     private void saveStudentJsonStr() {
         if (mContext != null) {
 
-            JSONArray studentJa = new JSONArray(mStudents);
+            Gson gson = new GsonBuilder().create();
+            JsonArray studentJa = gson.toJsonTree(mStudents).getAsJsonArray();
 
-            JSONObject rootJo = new JSONObject();
+            JsonObject rootJo = new JsonObject();
 
-            try {
-                rootJo.put("students", studentJa);
+            rootJo.add("students", studentJa.getAsJsonArray());
 
-                mStudentJsonStr = rootJo.toString();
+            mStudentJsonStr = rootJo.toString();
 
-                SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putString(Constant.SP_KEY, mStudentJsonStr);
-                edit.apply();
+            SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.putString(Constant.SP_KEY, mStudentJsonStr);
+            edit.apply();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 

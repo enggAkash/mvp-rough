@@ -27,7 +27,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         if (convertView == null)
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_item, parent, false);
 
-
         Student student = mStudentList.get(position);
 
         TextView id = convertView.findViewById(R.id.student_id);
@@ -35,11 +34,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         ImageView editStudent = convertView.findViewById(R.id.edit_student);
         ImageView deleteStudent = convertView.findViewById(R.id.delete_student);
 
-        id.setText(student.getId());
+        id.setText(String.valueOf(student.getId()));
         name.setText(student.getName());
 
         return convertView;
     }
+
+
 
     @Override
     public int getCount() {

@@ -39,7 +39,8 @@
             android:id="@+id/id_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Student ID" />
+            android:hint="Student ID"
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/name_et"
@@ -110,6 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="No Data Found" />
+        android:text="No Data Found"
+        android:visibility="gone" />
 
 </LinearLayout>

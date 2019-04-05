@@ -4,12 +4,12 @@ public class Student {
 
     private int id;
     private String name;
-    private String emai;
+    private String email;
 
-    public Student(int id, String name, String emai) {
+    public Student(int id, String name, String email) {
         this.id = id;
         this.name = name;
-        this.emai = emai;
+        this.email = email;
     }
 
     public int getId() {
@@ -28,11 +28,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getEmai() {
-        return emai;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmai(String emai) {
-        this.emai = emai;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
