@@ -40,8 +40,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         return convertView;
     }
 
-
-
     @Override
     public int getCount() {
         return mStudentList.size();

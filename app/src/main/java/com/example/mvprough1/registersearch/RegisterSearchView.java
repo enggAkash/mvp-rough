@@ -78,7 +78,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
 
         emptyListView = findViewById(R.id.empty_list_view);
 
-        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+        mRegisterTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSearchLayout.setVisibility(View.GONE);
@@ -120,6 +120,7 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
 
             }
         });
+
 
     }
 
@@ -219,4 +220,10 @@ public class RegisterSearchView extends AppCompatActivity implements RegisterSea
         mStudentEmail.setText(student.getEmail());
     }
 
+    @Override
+    public void resetRegisterFields() {
+        mStudentId.setText("");
+        mStudentName.setText("");
+        mStudentEmail.setText("");
+    }
 }

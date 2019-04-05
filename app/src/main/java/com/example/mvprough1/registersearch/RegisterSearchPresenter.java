@@ -84,6 +84,8 @@ public class RegisterSearchPresenter implements RegisterSearchContract.Presenter
             return;
         }
 
+        mStudentView.resetRegisterFields();
+
         showStudentList();
     }
 

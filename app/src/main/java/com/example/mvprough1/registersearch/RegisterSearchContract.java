@@ -26,6 +26,8 @@ public interface RegisterSearchContract {
 
         void studentToEdit(Student student);
 
+        void resetRegisterFields();
+
     }
 
     interface Presenter extends BasePresenter {
