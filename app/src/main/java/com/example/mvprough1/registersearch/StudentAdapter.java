@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mvprough1.R;
@@ -15,10 +16,12 @@ import java.util.List;
 
 public class StudentAdapter extends ArrayAdapter<Student> {
     private List<Student> mStudentList;
+    private AdapterViewContract.View mViewContract;
 
-    public StudentAdapter(Context context, int resource, List<Student> studentList) {
+    public StudentAdapter(Context context, int resource, List<Student> studentList, AdapterViewContract.View viewContract) {
         super(context, resource, studentList);
         mStudentList = studentList;
+        mViewContract = viewContract;
     }
 
     @Override
@@ -27,8 +30,9 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         if (convertView == null)
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_item, parent, false);
 
-        Student student = mStudentList.get(position);
+        final Student student = mStudentList.get(position);
 
+        LinearLayout studentLayout = convertView.findViewById(R.id.student_layout);
         TextView id = convertView.findViewById(R.id.student_id);
         TextView name = convertView.findViewById(R.id.student_name);
         ImageView editStudent = convertView.findViewById(R.id.edit_student);
@@ -36,6 +40,30 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
         id.setText(String.valueOf(student.getId()));
         name.setText(student.getName());
+
+        studentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mViewContract != null) {
+                    mViewContract.onStudentClickItem(student.getId());
+                }
+            }
+        });
+
+        editStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewContract.editStudent(student.getId());
+            }
+        });
+
+        deleteStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewContract.deleteStudent(student.getId());
+            }
+        });
+
 
         return convertView;
     }

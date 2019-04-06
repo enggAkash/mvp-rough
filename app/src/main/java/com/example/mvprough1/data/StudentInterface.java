@@ -10,7 +10,7 @@ public interface StudentInterface {
 
     ArrayList<Student> searchStudentByName(String name);
 
-    Student searchStudentByEmail(String email);
+    ArrayList<Student> searchStudentByEmail(String email);
 
     void deleteStudent(int id);
 

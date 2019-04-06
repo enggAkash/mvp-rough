@@ -54,13 +54,30 @@
             android:layout_height="wrap_content"
             android:hint="Student Email" />
 
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Register"
-            android:textAllCaps="false" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Register"
+                android:textAllCaps="false" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/reset_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Reset"
+                android:textAllCaps="false" />
+        </LinearLayout>
 
     </LinearLayout>
 

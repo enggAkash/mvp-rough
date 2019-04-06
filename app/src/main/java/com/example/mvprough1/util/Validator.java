@@ -9,4 +9,15 @@ public final class Validator {
         return email.matches(emailRegex);
     }
 
+    public static boolean isInt(String txt) {
+
+        try {
+            Integer.parseInt(txt);
+            return true;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }

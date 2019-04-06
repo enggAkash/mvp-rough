@@ -47,6 +47,8 @@ public interface RegisterSearchContract {
         void editStudent(int id);
 
         void updateStudent(int id, String name, String email);
+
+        void searchStudent(String searchCriteria, String searchBy);
     }
 
 }

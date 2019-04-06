@@ -36,7 +36,7 @@ public class StudentDataSource implements StudentInterface {
 
         if (searchStudentById(id) != null)
             return false;
-        if (searchStudentByEmail(email) != null)
+        if (searchStudentByEmail(email).size() > 0)
             return false;
         if (!Validator.isValidEmail(email))
             return false;
@@ -64,12 +64,31 @@ public class StudentDataSource implements StudentInterface {
 
     @Override
     public ArrayList<Student> searchStudentByName(String name) {
+
         ArrayList<Student> students = new ArrayList<>();
 
         for (Student s : mStudents) {
-            if (s.getName().equalsIgnoreCase(name)) {
+            if (s.getName().toLowerCase().contains(name.toLowerCase())) {
                 students.add(s);
-                break;
+            }
+        }
+
+        return students;
+    }
+
+    public ArrayList<Student> searchStudentByEmail(String email, int excludeId) {
+
+        ArrayList<Student> students = new ArrayList<>();
+
+
+        ArrayList<Student> studentByEmailList = searchStudentByEmail(email);
+
+        for (Student s : studentByEmailList) {
+            if (s.getId() == excludeId)
+                continue;
+
+            if (s.getEmail().toLowerCase().contains(email.toLowerCase())) {
+                students.add(s);
             }
         }
 
@@ -77,17 +96,17 @@ public class StudentDataSource implements StudentInterface {
     }
 
     @Override
-    public Student searchStudentByEmail(String email) {
-        Student student = null;
+    public ArrayList<Student> searchStudentByEmail(String email) {
+
+        ArrayList<Student> students = new ArrayList<>();
 
         for (Student s : mStudents) {
-            if (s.getEmail().equalsIgnoreCase(email)) {
-                student = s;
-                break;
+            if (s.getEmail().toLowerCase().contains(email.toLowerCase())) {
+                students.add(s);
             }
         }
 
-        return student;
+        return students;
     }
 
     @Override
@@ -115,7 +134,7 @@ public class StudentDataSource implements StudentInterface {
 
             if (student.getId() == id) {
 
-                if (searchStudentByEmail(email) != null)
+                if (searchStudentByEmail(email, student.getId()).size() > 0)
                     return false;
                 if (!Validator.isValidEmail(email))
                     return false;
@@ -141,12 +160,9 @@ public class StudentDataSource implements StudentInterface {
 
         try {
 
-            Log.d(TAG, "extractStudentJson: " + jsonStr);
             JSONObject rootJo = new JSONObject(jsonStr);
 
             JSONArray studentJa = rootJo.getJSONArray("students");
-
-            Log.d(TAG, "extractStudentJson: " + studentJa.toString());
 
             for (int i = 0; i < studentJa.length(); i++) {
                 JSONObject jo = studentJa.getJSONObject(i);
